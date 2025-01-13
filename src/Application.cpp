@@ -1,4 +1,5 @@
 #include <Application.h>
+#include <string>
 
 Application::Application()
 : m_Logger("Application.cpp")
@@ -6,9 +7,7 @@ Application::Application()
 	initialize();
 }
 
-Application::~Application() {
-
-}
+Application::~Application() {}
 
 void Application::run() {
 	renderLoop();
@@ -19,11 +18,50 @@ void Application::initialize() {
 	imguiInitialize();
 }
 
-void Application::glfwErrorCallback(int error, const char* description) {
-	fprintf(stderr, "GLFW Error %d: %s\n", error, description);
+void GLAPIENTRY Application::glfwErrorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
+	Logging logger("glDebugMessageCallback");
+	std::string typeDesc;
+
+	switch (type) {
+		case GL_DEBUG_TYPE_ERROR:
+			typeDesc = "OPENGL_ERROR";
+			break;
+		case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
+			typeDesc = "OPENGL_DEPRECATED_BEHAVIOR";
+			break;
+		case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
+			typeDesc = "OPENGL_UNDEFINED_BEHAVIOR";
+			break;
+		case GL_DEBUG_TYPE_PORTABILITY:
+			typeDesc = "OPENGL_PORTABILITY";
+			break;
+		case GL_DEBUG_TYPE_PERFORMANCE:
+			typeDesc = "OPENGL_PERFORMANCE";
+			break;
+		case GL_DEBUG_TYPE_OTHER:
+			typeDesc = "OPENGL_OTHER";
+			break;
+		default:
+			typeDesc = "OPENGL_UNKNOWN";
+	}
+
+	switch (severity){
+		case GL_DEBUG_SEVERITY_LOW:
+			logger.info(typeDesc + ": " + std::string(message));
+			break;
+		case GL_DEBUG_SEVERITY_MEDIUM:
+			logger.warn(typeDesc + ": " + std::string(message));
+			break;
+		case GL_DEBUG_SEVERITY_HIGH:
+			logger.error(typeDesc + ": " + std::string(message));
+			break;
+		default:
+			logger.info(typeDesc + ": " + std::string(message));
+	}
 }
 
 void Application::glfwInitialize() {
+
 	if (!glfwInit()) {
 		m_Logger.error("glfwInit() failed!");
 		return;
@@ -33,6 +71,7 @@ void Application::glfwInitialize() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
 	m_Window = glfwCreateWindow(640, 480, "Color Picker OpenGL", NULL, NULL);
 	if (!m_Window) {
@@ -42,7 +81,14 @@ void Application::glfwInitialize() {
 	}
 
 	glfwMakeContextCurrent(m_Window);
-	m_Logger.info("OpenGL and GLFW successfully initialized");
+	if (glewInit() != GLEW_OK) {
+		m_Logger.error("glewInit() failed!");
+	} else {
+		m_Logger.info("OpenGL and GLFW successfully initialized!");
+	}
+
+	glEnable(GL_DEBUG_OUTPUT);
+	glDebugMessageCallback(glfwErrorCallback, nullptr);
 }
 
 void Application::imguiInitialize() {
