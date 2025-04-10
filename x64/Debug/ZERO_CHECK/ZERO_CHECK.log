@@ -1,0 +1,6 @@
+﻿  1>Checking Build System
+  CMake is re-running because generate.stamp.list is missing.
+CUSTOMBUILD : CMake error : The source directory "C:/Users/worko/source/repos/ColorPickerOpenGL" does not appear to contain CMakeLists.txt.
+  Specify --help for usage, or press the help button on the CMake GUI.
+  The system cannot find the batch label specified - VCEnd
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(237,5): error MSB8066: Custom build for 'C:\Users\worko\source\repos\ColorPickerOpenGL\CMakeFiles\ad822adcc91e6fb88a208b5dc7d1d227\generate.stamp.rule' exited with code 1.

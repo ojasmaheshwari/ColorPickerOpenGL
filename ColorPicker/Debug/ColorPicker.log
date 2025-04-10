@@ -1,0 +1,15 @@
+﻿  main.cpp
+  imgui.cpp
+  imgui_impl_opengl3.cpp
+  imgui_impl_glfw.cpp
+  imgui_draw.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  imgui_demo.cpp
+  Application.cpp
+  AsciiColor.cpp
+  Logging.cpp
+  Generating Code...
+glew32s.lib(glew.obj) : warning LNK4099: PDB '' was not found with 'glew32s.lib(glew.obj)' or at ''; linking object as if no debug info
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  ColorPicker.vcxproj -> C:\Users\worko\source\repos\ColorPickerOpenGL\Debug\ColorPicker.exe

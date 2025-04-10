@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\worko\source\repos\ColorPickerOpenGL\CMakeFiles\ad822adcc91e6fb88a208b5dc7d1d227\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{47C7492F-9493-38B6-A739-89EC2A5753B8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
